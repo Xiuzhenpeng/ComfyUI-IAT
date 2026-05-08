@@ -2,8 +2,7 @@
 
 > 中文速览（精简版）
 >
-> - 节点分类不变：`IAT/Qwen3.5`、`IAT/Vision API`、`IAT/Image`、`IAT/Input`。
-> - 本次整理仅做文件与说明精简，不改节点输入输出与执行逻辑。
+> - 节点分类包括：`IAT/Qwen3.5`、`IAT/Vision API`、`IAT/Image`、`IAT/Input`、`IAT/Video`。
 > - 反推接口优先级：节点输入 > `config.yaml` 对应 provider > 环境变量。
 > - 文本与视觉节点仅支持官方原版 `model_variant`。
 > - 模型下载目录固定为 `ComfyUI/models/diffusion_models`。
@@ -13,6 +12,7 @@
 ## Table of Contents
 - [Node Overview](#node-overview)
 - [Image Color Palette Extractor](#image-color-palette-extractor)
+- [Image + Audio to Video](#image--audio-to-video)
 - [Model Variants](#model-variants)
 - [Qwen3.5 Prompt Enhancer](#qwen35-prompt-enhancer)
 - [Qwen3.5 Reverse Prompt](#qwen35-reverse-prompt)
@@ -24,7 +24,7 @@
 
 ## Node Overview
 
-ComfyUI-IAT provides 6 nodes for text and image processing:
+ComfyUI-IAT provides 7 nodes for text, image, and video processing:
 
 | Node | Category | Purpose |
 |------|----------|---------|
@@ -34,6 +34,7 @@ ComfyUI-IAT provides 6 nodes for text and image processing:
 | Qwen Translator | IAT/Qwen3.5 | Translate text to English |
 | Qwen Kontext Translator | IAT/Qwen3.5 | Optimize editing instructions |
 | Image Color Palette Extractor | IAT/Image | Extract dominant colors and render a ratio-based palette chart |
+| Image + Audio to Video | IAT/Video | Repeat one image for the input audio duration and output a native 24 FPS video |
 
 ## Image Color Palette Extractor
 
@@ -64,6 +65,32 @@ Extract dominant colors from one or more input images and output a vertical pale
 Load Image → Image Color Palette Extractor by IAT → Save Image
                                   ↓
                               Show Text
+```
+
+## Image + Audio to Video
+
+### Purpose
+Create a native ComfyUI `VIDEO` by holding a single input image for the full duration of the input `AUDIO`. The node fixes the output frame rate at 24 FPS and derives the frame count from the audio sample count and `sample_rate`.
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| image | IMAGE | required | Source image; if a batch is provided, only the first image is used |
+| audio | AUDIO | required | ComfyUI audio object containing `waveform` and `sample_rate` |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| video | VIDEO | Native ComfyUI video with the repeated image frames and original audio |
+
+### Example Workflow
+
+```
+Load Image ─┐
+            ├→ Image + Audio to Video by IAT → Save Video
+Load Audio ─┘
 ```
 
 ## Model Variants
