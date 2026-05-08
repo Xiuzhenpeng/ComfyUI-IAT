@@ -30,7 +30,7 @@
 
 ### ✨ Features
 
-ComfyUI-IAT provides powerful AI-driven text and image processing nodes for ComfyUI workflows:
+ComfyUI-IAT provides powerful AI-driven text, image, and audio metadata processing nodes for ComfyUI workflows:
 
 | Node | Function | Description |
 |------|----------|-------------|
@@ -40,6 +40,7 @@ ComfyUI-IAT provides powerful AI-driven text and image processing nodes for Comf
 | 🌐 **Qwen Translator** | Translation | Translate Chinese/Japanese to natural English |
 | ✏️ **Qwen Kontext Translator** | Editing Optimization | Optimize editing instructions for image editing models |
 | 🎨 **Image Color Palette Extractor** | Color Analysis | Extract dominant colors and generate a ratio-based palette image |
+| 🎧 **Audio Set Cover** | Audio Metadata | Attach a single image as cover-art metadata to an audio object without changing the waveform |
 
 ### 🚀 Quick Start
 
@@ -249,7 +250,7 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ### ✨ 功能特性
 
-ComfyUI-IAT 为 ComfyUI 工作流提供强大的 AI 驱动的文本和图像处理节点：
+ComfyUI-IAT 为 ComfyUI 工作流提供强大的 AI 驱动的文本、图像与音频元数据处理节点：
 
 | 节点 | 功能 | 描述 |
 |------|------|------|
@@ -259,6 +260,7 @@ ComfyUI-IAT 为 ComfyUI 工作流提供强大的 AI 驱动的文本和图像处�
 | 🌐 **Qwen 翻译器** | 翻译 | 将中文/日文翻译成自然流畅的英文 |
 | ✏️ **Qwen 编辑提示词优化** | 编辑优化 | 为图像编辑模型优化编辑指令 |
 | 🎨 **图像主色调色板提取器** | 颜色分析 | 提取图片主色并输出按占比绘制的色条图 |
+| 🎧 **音频封面设置器** | 音频元数据 | 将单张图片作为封面元数据写入音频对象，保持音频波形不变 |
 
 ### 🚀 快速开始
 
