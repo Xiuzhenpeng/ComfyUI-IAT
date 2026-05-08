@@ -2,7 +2,7 @@
 
 > 中文速览（精简版）
 >
-> - 节点分类不变：`IAT/Qwen3.5`、`IAT/Vision API`、`IAT/Image`、`IAT/Input`。
+> - 节点分类：`IAT/Qwen3.5`、`IAT/Vision API`、`IAT/Image`、`IAT/Input`、`IAT/Audio`。
 > - 本次整理仅做文件与说明精简，不改节点输入输出与执行逻辑。
 > - 反推接口优先级：节点输入 > `config.yaml` 对应 provider > 环境变量。
 > - 文本与视觉节点仅支持官方原版 `model_variant`。
@@ -13,6 +13,7 @@
 ## Table of Contents
 - [Node Overview](#node-overview)
 - [Image Color Palette Extractor](#image-color-palette-extractor)
+- [Audio Set Cover](#audio-set-cover)
 - [Model Variants](#model-variants)
 - [Qwen3.5 Prompt Enhancer](#qwen35-prompt-enhancer)
 - [Qwen3.5 Reverse Prompt](#qwen35-reverse-prompt)
@@ -24,7 +25,7 @@
 
 ## Node Overview
 
-ComfyUI-IAT provides 6 nodes for text and image processing:
+ComfyUI-IAT provides nodes for text, image, and audio metadata processing:
 
 | Node | Category | Purpose |
 |------|----------|---------|
@@ -34,6 +35,33 @@ ComfyUI-IAT provides 6 nodes for text and image processing:
 | Qwen Translator | IAT/Qwen3.5 | Translate text to English |
 | Qwen Kontext Translator | IAT/Qwen3.5 | Optimize editing instructions |
 | Image Color Palette Extractor | IAT/Image | Extract dominant colors and render a ratio-based palette chart |
+| Audio Set Cover | IAT/Audio | Attach the first input image as cover-art metadata to an audio object without changing the waveform |
+
+## Audio Set Cover
+
+### Purpose
+Attach one ComfyUI `IMAGE` as cover-art metadata to a ComfyUI `AUDIO` object while preserving the original waveform, sample rate, and any existing audio fields. If an image batch is connected, only the first image is used as the cover.
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| image | IMAGE | required | Source image used as the audio cover |
+| audio | AUDIO | required | ComfyUI audio object to pass through with cover metadata attached |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| audio | AUDIO | Original audio object with PNG cover metadata fields added |
+
+### Example
+
+```
+Load Image ─┐
+            ├→ Audio Set Cover by IAT → downstream audio node
+Load Audio ─┘
+```
 
 ## Image Color Palette Extractor
 
